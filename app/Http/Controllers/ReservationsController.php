@@ -20,10 +20,12 @@ class ReservationsController extends Controller
       $from_date = $request->input('from_date');
       $to_date = $request->input('to_date');
 
+      $from = min($from_date, $to_date);
+      $till = max($from_date, $to_date);
 
-      $reservations = Reservation::whereBetween('start_date', [$from_date, $to_date])
-                ->orWhereBetween('end_date', [$from_date, $to_date])
-                ->get();
+      $reservations = Reservation::where('start_date', '<=', $from)
+                                     ->where('end_date', '>=', $till)
+                                     ->get();
 
       print($reservations);
 
