@@ -15,7 +15,6 @@
   {{ $facility->name }}
 </p>
 
-
 <input type="hidden" name="facility_id" value="{{ $facility->id}}" />
 From
 <p><input type="text" id="datetimepicker_from" name="from_date" class="form-control" value="{{$from_date}}"></p>

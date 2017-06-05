@@ -1,6 +1,11 @@
 <?php
 
 use Illuminate\Http\Request;
+use App\Place;
+use App\Facility;
+use App\Reservation;
+
+
 
 /*
 |--------------------------------------------------------------------------
@@ -21,6 +26,89 @@ Route::get('/', function () {
   $response = \Response::json($result)->setStatusCode(200, 'Success');
 
   return $response;
+
+});
+
+Route::post('search', function(Request $request){
+
+  $from_date = $request->input('from_date');
+  $to_date = $request->input('to_date');
+  $location = $request->input('location');
+
+  $from = min($from_date, $to_date);
+  $till = max($from_date, $to_date);
+
+  $reservations = Reservation::where('start_date', '<=', $from)
+                                 ->where('end_date', '>=', $till)
+                                 ->get();
+
+  $places = Place::where('name','like','%'.$location.'%')->get();
+
+  $my_places = [];
+  
+
+  foreach($places as $place){
+
+    $my_place = ["name"=> $place->name,
+                   "id"=> $place->id,
+                   "address"=>$place->address,
+                   "description"=>$place->description];
+
+    $my_facilities = [];
+
+    foreach ($place->facilities as $facility) {
+
+      // if have reservations
+      if ($reservations->count() > 0){
+
+        // print "reservation " . $reservations->count();
+        $has_matched = false;
+
+        foreach($reservations as $reservation){
+
+          if($reservation->facility_id == $facility->id){
+
+            $has_matched = true;
+
+
+          }
+
+        }
+
+        if ($has_matched == false){
+
+          array_push($my_facilities, $facility);
+        }
+
+      // no reservations found
+      }else{
+
+        array_push($my_facilities, $facility);
+
+      }
+
+      // array_push($my_facilities, $facility);
+
+      $my_place['facilities'] = $my_facilities;
+
+    }
+
+    array_push($my_places, $my_place);
+
+
+
+  }
+
+
+  $result = [//'facilities'=>$my_facilities,
+             'result' => 'OK',
+             'places' => $my_places,
+             'from_date' => $from_date,
+             'reservations'=>$reservations,
+             'to_date' => $to_date,
+             ];
+
+  return \Response::json($result);
 
 });
 
@@ -69,9 +157,6 @@ Route::post('signUp', function(Request $request){
      return $response;
 
   }
-
-
-
 
 });
 

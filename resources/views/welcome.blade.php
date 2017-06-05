@@ -2,18 +2,33 @@
 
 @section('content')
 
-<h1>Search</h1>
+
 
 <div class="col-md-6">
 
 <form action="search">
 
+    <h3>Search</h3>
+
+    Location
+    <p><input type="text" id="" name="location" class="form-control" value=""></p>
 
     From
     <p><input type="text" id="datetimepicker_from" name="from_date" class="form-control" value=""></p>
     To
     <p><input type="text" id="datetimepicker_to" name="to_date" class="form-control" value=""></p>
     <br/>
+
+    <input class="btn btn-primary" type="submit" value="Search"/>
+
+</form>
+
+<hr />
+
+<form action="checkReservation">
+
+    <h3>Reservation Check</h3>
+    <p><input type="text" id="datetimepicker_from" name="reservation_no" class="form-control" value=""></p>
 
     <input class="btn btn-primary" type="submit" value="Search"/>
 

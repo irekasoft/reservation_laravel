@@ -22,7 +22,17 @@ Route::resource('facilities', 'FacilitiesController');
 Route::get('facilities/create/{place_id}', 'FacilitiesController@create');
 
 Route::get('/home', 'HomeController@index')->name('home');
+
 Route::get('/search', 'ReservationsController@search');
 
+Route::get('/checkReservation', 'ReservationsController@checkReservation');
+
+Route::get('/reservations','ReservationsController@index');
 Route::get('/reservation/{facility_id}','ReservationsController@reservationDetail');
 Route::post('/reservation/confirmReservation','ReservationsController@confirmReservation');
+
+Route::get('/vue',function (){
+
+  return view('vue');
+
+});

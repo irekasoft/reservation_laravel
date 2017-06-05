@@ -17,7 +17,7 @@ class FacilitiesController extends Controller
      */
     public function index()
     {
-        //
+
     }
 
     /**
@@ -27,7 +27,6 @@ class FacilitiesController extends Controller
      */
     public function create($place_id)
     {
-
 
       return view('places.create-facility',['place_id'=>$place_id]);
 
