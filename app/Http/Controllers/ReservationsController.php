@@ -8,7 +8,8 @@ use App\Facility;
 use App\Reservation;
 use Session;
 use Auth;
-
+use Calendar;
+use Carbon\Carbon;
 
 class ReservationsController extends Controller
 {
@@ -106,6 +107,41 @@ class ReservationsController extends Controller
     $reservations = Reservation::where('user_id','=',$user_id)->get();
 
     return view('reservations.myreservations')->with('reservations',$reservations);
+
+  }
+
+  function calendar(Request $request){
+
+    $reservations = Reservation::all();
+
+    foreach ($reservations as $reservation){
+
+      $facility = Facility::find($reservation->facility_id);
+
+
+      $events_arr[] = \Calendar::event(
+
+
+        $facility->name . " (". $facility->place->name. ")", //event title
+        true, //full day event?
+        new \DateTime($reservation->start_date), //start time (you can also use Carbon instead of DateTime)
+        new \DateTime($reservation->end_date), //end time (you can also use Carbon instead of DateTime)
+        'aa'
+      );
+    }
+
+
+    $calendar = \Calendar::addEvents($events_arr); //add an array with addEvents
+
+    $data = array(
+      'now'=>Carbon::today(),
+  		'events'=>$reservations,
+  		'calendar'=>$calendar,
+  		);
+
+
+    return view('reservations.calendar', $data);
+
 
   }
 

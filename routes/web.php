@@ -32,6 +32,7 @@ Route::get('/checkReservation', 'ReservationsController@checkReservation');
 
 
 Route::get('/myReservations','ReservationsController@myReservations');
+Route::get('/calendar','ReservationsController@calendar');
 
 Route::get('/reservations','ReservationsController@index');
 Route::get('/reservation/{facility_id}','ReservationsController@reservationDetail');

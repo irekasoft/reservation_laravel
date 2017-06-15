@@ -10,6 +10,10 @@
 <script src="//code.jquery.com/ui/1.11.4/jquery-ui.js"></script>
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css">
 <link rel="stylesheet" href="http://cdnjs.cloudflare.com/ajax/libs/fullcalendar/2.2.7/fullcalendar.min.css"/>
+
+<link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/fullcalendar/2.2.7/fullcalendar.min.css"/>
+
+
 </head>
 <body>
 
@@ -20,6 +24,7 @@
     </div>
     <div class="nav navbar-nav navbar-right">
         <li><a href="{{ route('home') }}">Home</a></li>
+        <li><a href="{{ url('calendar') }}">Calendar</a></li>
         <li><a href="{{ url('myReservations') }}">My Reservations</a></li>
         <li><a href="{{ route('places.index') }}">Places</a></li>
 
@@ -59,5 +64,9 @@
     </div>
 </main>
   <script src="{{ asset('js/app.js') }}"></script>
+  <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
+  <script src="//cdnjs.cloudflare.com/ajax/libs/moment.js/2.9.0/moment.min.js"></script>
+  <script src="//cdnjs.cloudflare.com/ajax/libs/fullcalendar/2.2.7/fullcalendar.min.js"></script>
+
 </body>
 </html>
