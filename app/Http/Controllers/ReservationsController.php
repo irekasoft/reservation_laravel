@@ -41,8 +41,8 @@ class ReservationsController extends Controller
     $from = min($from_date, $to_date);
     $till = max($from_date, $to_date);
 
-    $reservations = Reservation::where('start_date', '<=', $from)
-                                   ->where('end_date', '>=', $till)
+    $reservations = Reservation::where('start_date', '>=', $from)
+                                   ->where('end_date', '<=', $till)
                                    ->get();
 
     $places = Place::where('name','like','%'.$location.'%')->get();
@@ -76,7 +76,6 @@ class ReservationsController extends Controller
 
     }
 
-
     $user_id = Auth::user()->id;
 
 
@@ -96,8 +95,17 @@ class ReservationsController extends Controller
 
   function myReservations(Request $request){
 
-    $reservations = Reservation::all();
-    return view('reservations.myreseravations')->with('reservations',$reservations);
+    if (Auth::user() == null){
+
+      return 'Please log in';
+
+    }
+
+    $user_id = Auth::user()->id;
+
+    $reservations = Reservation::where('user_id','=',$user_id)->get();
+
+    return view('reservations.myreservations')->with('reservations',$reservations);
 
   }
 

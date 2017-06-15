@@ -20,7 +20,7 @@
     </div>
     <div class="nav navbar-nav navbar-right">
         <li><a href="{{ route('home') }}">Home</a></li>
-        <li><a href="{{ url('reservations') }}">My Reservations</a></li>
+        <li><a href="{{ url('myReservations') }}">My Reservations</a></li>
         <li><a href="{{ route('places.index') }}">Places</a></li>
 
         <!-- Authentication Links -->
