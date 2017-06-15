@@ -23,10 +23,8 @@ class ReservationsController extends Controller
 
   function checkReservation(Request $request){
 
-
     $reservation_no = $request->input('reservation_no');
     $reservation = Reservation::where('reservation_no','=',$reservation_no)->first();
-
 
     return view('reservations.reservation-status',['reservation' => $reservation]);
 
@@ -34,8 +32,6 @@ class ReservationsController extends Controller
 
   //
   function search(Request $request){
-
-
 
     $from_date = $request->input('from_date');
     $to_date = $request->input('to_date');
@@ -49,9 +45,9 @@ class ReservationsController extends Controller
                                    ->where('end_date', '>=', $till)
                                    ->get();
 
-    $places = Place::where('name','like','%'.$location.'%')->get(); 
+    $places = Place::where('name','like','%'.$location.'%')->get();
 
-    print($reservations);
+    //print($reservations);
 
     return view('reservations.search-result',['places'=>$places,'from_date'=>$from_date, 'to_date'=>$to_date, 'reservations'=>$reservations]);
 

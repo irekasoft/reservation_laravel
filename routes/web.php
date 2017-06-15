@@ -11,11 +11,14 @@
 |
 */
 
+Auth::routes();
+
+
+
 Route::get('/', function () {
     return view('welcome');
 });
 
-Auth::routes();
 
 Route::resource('places', 'PlacesController');
 Route::resource('facilities', 'FacilitiesController');

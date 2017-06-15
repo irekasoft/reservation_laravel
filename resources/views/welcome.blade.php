@@ -2,8 +2,6 @@
 
 @section('content')
 
-
-
 <div class="col-md-6">
 
 <form action="search">

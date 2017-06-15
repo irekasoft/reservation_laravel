@@ -29,7 +29,7 @@ Search for {{$from_date}} to {{ $to_date}}
 
           }
 
-          if ($has_matched== false){
+          if ($has_matched == false){
 
             ?>
 
@@ -49,7 +49,6 @@ Search for {{$from_date}} to {{ $to_date}}
           <?php
 
         }
-
 
       ?>
 

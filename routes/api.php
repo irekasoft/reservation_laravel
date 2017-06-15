@@ -6,7 +6,6 @@ use App\Facility;
 use App\Reservation;
 
 
-
 /*
 |--------------------------------------------------------------------------
 | API Routes
@@ -45,14 +44,13 @@ Route::post('search', function(Request $request){
   $places = Place::where('name','like','%'.$location.'%')->get();
 
   $my_places = [];
-  
 
   foreach($places as $place){
 
     $my_place = ["name"=> $place->name,
-                   "id"=> $place->id,
-                   "address"=>$place->address,
-                   "description"=>$place->description];
+                 "id"=> $place->id,
+                 "address"=>$place->address,
+                 "description"=>$place->description];
 
     $my_facilities = [];
 
@@ -69,7 +67,6 @@ Route::post('search', function(Request $request){
           if($reservation->facility_id == $facility->id){
 
             $has_matched = true;
-
 
           }
 
@@ -95,16 +92,12 @@ Route::post('search', function(Request $request){
 
     array_push($my_places, $my_place);
 
-
-
   }
 
-
-  $result = [//'facilities'=>$my_facilities,
-             'result' => 'OK',
+  $result = ['result' => 'OK',
              'places' => $my_places,
              'from_date' => $from_date,
-             'reservations'=>$reservations,
+             //'reservations'=>$reservations,
              'to_date' => $to_date,
              ];
 
@@ -157,6 +150,32 @@ Route::post('signUp', function(Request $request){
      return $response;
 
   }
+
+});
+
+Route::post('confirmReservation', function(Request $request){
+
+  $from_date = $request->input('from_date');
+  $to_date = $request->input('to_date');
+  $facility_id = $request->input('facility_id');
+  $user_id = $request->input('user_id');
+
+  $reservation = new Reservation;
+
+  $reservation->user_id = $user_id;
+  $reservation->facility_id = $facility_id;
+  $reservation->start_date = $from_date;
+  $reservation->end_date = $to_date;
+  $reservation->reservation_no = uniqid();
+
+  $reservation->save();
+
+  $result = ['result' => 'OK',
+             'message' => 'OK',
+             'reservation_no'=>$reservation->reservation_no];
+
+  $response = \Response::json($result)->setStatusCode(200, 'Success');
+  return $response;
 
 });
 

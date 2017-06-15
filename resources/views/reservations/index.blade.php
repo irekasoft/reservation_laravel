@@ -4,8 +4,6 @@
 
 <h1>Reservations</h1>
 
-
-
 @foreach($reservations as $reservation)
 
     <p><strong>{{ $reservation->reservation_no}}</strong></p>
