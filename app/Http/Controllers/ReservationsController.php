@@ -43,8 +43,10 @@ class ReservationsController extends Controller
     $till = max($from_date, $to_date);
 
     $reservations = Reservation::where('start_date', '>=', $from)
-                                   ->where('end_date', '<=', $till)
-                                   ->get();
+                                 ->where('end_date', '<=', $till)
+                                 ->orWhere('end_date', '>=', $from)
+                                 ->where('start_date', '<=', $till)
+                                 ->get();
 
     $places = Place::where('name','like','%'.$location.'%')->get();
 
@@ -118,16 +120,16 @@ class ReservationsController extends Controller
 
       $facility = Facility::find($reservation->facility_id);
 
+      $end_date = new \DateTime($reservation->end_date);
 
       $events_arr[] = \Calendar::event(
-
-
-        $facility->name . " (". $facility->place->name. ")", //event title
+        $facility->id . ". " . $facility->name . " (". $facility->place->name . ")", //event title
         true, //full day event?
-        new \DateTime($reservation->start_date), //start time (you can also use Carbon instead of DateTime)
-        new \DateTime($reservation->end_date), //end time (you can also use Carbon instead of DateTime)
-        'aa'
+        new \DateTime($reservation->start_date),
+        $end_date->modify('+1 day'),
+        'id'
       );
+
     }
 
 
