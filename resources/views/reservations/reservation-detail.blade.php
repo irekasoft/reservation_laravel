@@ -17,9 +17,9 @@
 
 <input type="hidden" name="facility_id" value="{{ $facility->id}}" />
 From
-<p><input type="text" id="datetimepicker_from" name="from_date" class="form-control" value="{{$from_date}}"></p>
+<p><input type="text" id="datetimepicker_from" name="from_date" class="form-control" value="{{$from_date}}" disabled></p>
 To
-<p><input type="text" id="datetimepicker_to" name="to_date" class="form-control" value="{{$to_date}}"></p>
+<p><input type="text" id="datetimepicker_to" name="to_date" class="form-control" value="{{$to_date}}" disabled></p>
 <br/>
 
 {!! Form::submit('Confirm Reservation', ['class' => 'btn btn-primary']) !!}
