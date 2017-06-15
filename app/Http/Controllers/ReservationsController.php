@@ -70,7 +70,15 @@ class ReservationsController extends Controller
     $to_date = $request->input('to_date');
     $facility_id = $request->input('facility_id');
 
+    if (Auth::user() == null){
+
+      return 'Please log in';
+
+    }
+
+
     $user_id = Auth::user()->id;
+
 
     $reservation = new Reservation;
 
@@ -83,6 +91,13 @@ class ReservationsController extends Controller
     $reservation->save();
 
     return redirect(url('/'));
+
+  }
+
+  function myReservations(Request $request){
+
+    $reservations = Reservation::all();
+    return view('reservations.myreseravations')->with('reservations',$reservations);
 
   }
 

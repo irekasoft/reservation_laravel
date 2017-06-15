@@ -30,6 +30,9 @@ Route::get('/search', 'ReservationsController@search');
 
 Route::get('/checkReservation', 'ReservationsController@checkReservation');
 
+
+Route::get('/myReservations','ReservationsController@myReservations');
+
 Route::get('/reservations','ReservationsController@index');
 Route::get('/reservation/{facility_id}','ReservationsController@reservationDetail');
 Route::post('/reservation/confirmReservation','ReservationsController@confirmReservation');
